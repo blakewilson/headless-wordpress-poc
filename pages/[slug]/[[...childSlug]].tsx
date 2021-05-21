@@ -2,12 +2,16 @@ import { getApolloClient, getContentNode } from "@wpengine/headless-core";
 import { GetStaticPropsContext } from "next";
 import Page from "../../components/page";
 import Post from "../../components/post";
+import inferNodeUri from "../../lib/inferNodeUri";
 
 interface NodeProps {
   node: WPGraphQL.Post | WPGraphQL.Page | null;
+  url: string;
 }
 
-export default function Node({ node }: NodeProps) {
+export default function Node({ node, url }: NodeProps) {
+  console.log(url);
+
   // @ts-ignore
   if (node && node.__typename === "Page") {
     return <Page page={node as WPGraphQL.Page} />;
@@ -38,6 +42,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   return {
     props: {
       node: node || null,
+      url: inferNodeUri(__filename, context),
     },
   };
 }

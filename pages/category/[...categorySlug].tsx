@@ -5,15 +5,19 @@ import Footer from "../../components/footer";
 import Header from "../../components/header";
 import Hero from "../../components/hero";
 import Posts from "../../components/posts";
+import inferNodeUri from "../../lib/inferNodeUri";
 
 const POSTS_PER_PAGE = 10;
 
 interface CategoryProps {
   posts: WPGraphQL.RootQueryToPostConnection;
   categoryName: string;
+  url: string;
 }
 
-export default function Category({ posts, categoryName }: CategoryProps) {
+export default function Category({ posts, categoryName, url }: CategoryProps) {
+  console.log(url);
+
   return (
     <>
       <Head>
@@ -53,6 +57,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     props: {
       posts,
       categoryName: categorySlug.toString(),
+      url: inferNodeUri(__filename, context),
     },
   };
 }
