@@ -3,6 +3,7 @@ import { GetStaticPropsContext } from "next";
 import Page from "../../components/page";
 import Post from "../../components/post";
 import DefaultErrorPage from "next/error";
+import Custom404 from "../404";
 
 interface NodeProps {
   node: WPGraphQL.Post | WPGraphQL.Page | null;
@@ -19,7 +20,7 @@ export default function Node({ node }: NodeProps) {
     return <Post post={node as WPGraphQL.Post} />;
   }
 
-  return <DefaultErrorPage statusCode={404} />;
+  return <Custom404 />;
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
