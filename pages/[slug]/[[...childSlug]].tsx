@@ -1,17 +1,14 @@
 import { getApolloClient, getContentNode } from "@wpengine/headless-core";
 import { GetStaticPropsContext } from "next";
-import { useRouter } from "next/router";
 import Page from "../../components/page";
 import Post from "../../components/post";
-import Custom404 from "../404";
+import DefaultErrorPage from "next/error";
 
 interface NodeProps {
   node: WPGraphQL.Post | WPGraphQL.Page | null;
 }
 
 export default function Node({ node }: NodeProps) {
-  const router = useRouter();
-
   // @ts-ignore
   if (node && node.__typename === "Page") {
     return <Page page={node as WPGraphQL.Page} />;
@@ -22,7 +19,7 @@ export default function Node({ node }: NodeProps) {
     return <Post post={node as WPGraphQL.Post} />;
   }
 
-  return <Custom404 />;
+  return <DefaultErrorPage statusCode={404} />;
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
