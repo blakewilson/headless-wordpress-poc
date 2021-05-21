@@ -29,6 +29,12 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     },
   });
 
+  if (!node) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       node: node || null,
