@@ -1,6 +1,10 @@
 {
   "name": "headless-wordpress",
   "version": "0.1.0",
+  "engines": {
+    "npm": ">7.0.0"
+  },
+  "engineStrict": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
